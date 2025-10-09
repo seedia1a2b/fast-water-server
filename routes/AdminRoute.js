@@ -8,6 +8,5 @@ adminRouter.post('/login', adminLogin);
 
 adminRouter.post('/created-new-admin', addNewAdmin)
 
-
 export default adminRouter;
 
