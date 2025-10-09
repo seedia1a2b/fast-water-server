@@ -10,9 +10,10 @@ export const adminLogin =  async (req, res) => {
     if(!email || !password){
       return res.json({success: false, message:'Missing details, email and password required!'})
     }
-    const admin = await Admin.findOne(email);
+    const admin = await Admin.findOne({email});
 
     if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+      console.log('entered')
       if(!admin){
 
         const hashedPassword = await bcrypt.hash(password,10)
@@ -24,7 +25,7 @@ export const adminLogin =  async (req, res) => {
 
         await admin.save()
         const token = generateToken(admin.email);
-        return res.json({success:true, token})
+        res.json({success:true, token})
       }else {
         const token = generateToken(admin.email)
         return res.json({success:true, token})
