@@ -1,5 +1,6 @@
 import {v2 as cloudinary} from 'cloudinary';
 import Blog from '../models/blog';
+import { useParams } from 'react-router-dom';
 
 
 export const addBlog = async (req, res) => {
@@ -35,7 +36,7 @@ export const addBlog = async (req, res) => {
 } 
 
 
-const getAllBlog = async (req, res) => {
+export const getAllBlog = async (req, res) => {
   try {
     const blogs = await Blog.find({});
 
@@ -43,6 +44,23 @@ const getAllBlog = async (req, res) => {
       res.json({success:false, message:"No blogs found upload to view blogs"})
     }
     res.json({success:true, data: blogs})
+  } catch (error) {
+    res.json({success:false, message:error.message})
+  }
+}
+
+
+export const getBlog = async (req, res) => {
+  try {
+    const {id} = useParams()
+
+    const blog = await Blog.findById(id);
+
+    if(!blog){
+      return res.json({success:false, message:"Blog not found"})
+    }
+
+    res.json({success:true, data:blog})
   } catch (error) {
     res.json({success:false, message:error.message})
   }
