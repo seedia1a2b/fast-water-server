@@ -1,4 +1,5 @@
 import {v2 as cloudinary} from 'cloudinary';
+import Blog from '../models/blog';
 
 
 export const addBlog = async (req, res) => {
@@ -32,3 +33,17 @@ export const addBlog = async (req, res) => {
     res.json({success:false, message:error.message})
   }
 } 
+
+
+const getAllBlog = async (req, res) => {
+  try {
+    const blogs = await Blog.find({});
+
+    if(blogs.length < 1){
+      res.json({success:false, message:"No blogs found upload to view blogs"})
+    }
+    res.json({success:true, data: blogs})
+  } catch (error) {
+    res.json({success:false, message:error.message})
+  }
+}
