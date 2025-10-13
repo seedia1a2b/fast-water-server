@@ -27,7 +27,7 @@ export const adminLogin =  async (req, res) => {
         const token = generateToken(admin.email);
         res.json({success:true, token})
       }else {
-        const token = generateToken(admin.email)
+        const token = generateToken(email)
         return res.json({success:true, token})
       }
     }else {
@@ -35,6 +35,7 @@ export const adminLogin =  async (req, res) => {
     }
 
   } catch (error) {
+    console.log(error)
     res.json({success:false, message:error.message})
   }
 }
@@ -63,6 +64,7 @@ export const addNewAdmin = async (req, res) => {
     res.json({success:true, message: `Admin ${email} created successfully!`})
     
   } catch (error) {
+    console.log(error)
     res.json({success:false, message:error.message});
   }
 }

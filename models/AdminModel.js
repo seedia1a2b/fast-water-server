@@ -6,6 +6,6 @@ const AdminShcema = new mongoose.Schema({
   isSuperAdmin:{type: Boolean, default:false}
 }) 
 
-const Admin = mongoose.models.Admin || mongoose.model('Admin', AdminShcema);
+const Admin = mongoose.model('Admin', AdminShcema);
 
 export default Admin;

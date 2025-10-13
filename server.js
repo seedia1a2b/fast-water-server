@@ -3,10 +3,14 @@ import cors from 'cors'
 import 'dotenv/config'
 import connectDb from './config/connectDB.js';
 import adminRouter from './routes/AdminRoute.js';
+import connectCloudinary from './config/cloudinary.js';
 
 const app = express()
 
-await connectDb()
+
+//configuring the config files
+await connectDb();
+await connectCloudinary();
 
 
 const PORT = process.env.PORT || 4000

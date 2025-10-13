@@ -4,12 +4,16 @@ const authAdmin = async (req, res, next) => {
   try {
     const token = req.headers['token'];
 
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+    console.log(token)
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET)
 
-    console.log(decodedToken);
+    console.log({decodedToken, token});
 
     next()
   } catch (error) {
+    console.log(error)
     res.json({success:false, message: error.message})
   }
 }
+
+export default authAdmin;
