@@ -80,10 +80,37 @@ export const deleteBlog = async (req, res) => {
       return res.json({success:false, message:'Id not found!'})
     }
 
+    const blog = await Blog.findById(id);
+
+    if(!blog){
+      return res.json({success:false, message:'blog not found'})
+    }
+
     await Blog.findByIdAndDelete(id)
     res.json({success:true, message:'Blog deleted successfully!!!'})
   } catch (error) {
     console.log(error)
+    res.json({success:false, message:error.message})
+  }
+}
+
+export const toggleBlog = async (req, res) => {
+  try {
+    const {id} = req.body;
+
+    if(!id){
+      return res.json({success:false, message:'Blog id not found'});
+    }
+
+    const blog = await Blog.findById(id);
+    if(!blog){
+      res.json({success:false, message:"Blog not found!"})
+    }
+    blog.isPublished = !blog.isPublished;
+
+    blog.save()
+    res.json({success:true, message:`Blog ${blog.isPublished ? 'published': 'UnPublished'}`})
+  } catch (error) {
     res.json({success:false, message:error.message})
   }
 }
