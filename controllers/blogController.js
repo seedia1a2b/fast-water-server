@@ -1,6 +1,5 @@
 import {v2 as cloudinary} from 'cloudinary';
 import Blog from '../models/blog.js';
-import { useParams } from 'react-router-dom';
 
 
 export const addBlog = async (req, res) => {
@@ -10,6 +9,10 @@ export const addBlog = async (req, res) => {
 
     const imageFile = req.file;
 
+
+    if(!imageFile.path){
+      return res.json({success:false, message:'Image must be uploaded'})
+    }
 
     if(!title || !subTitle || !description || !isPublished || !category){
       return res.json({success: false, message: "Missing required fields"})
@@ -52,13 +55,13 @@ export const getAllBlog = async (req, res) => {
 
 export const getBlog = async (req, res) => {
   try {
-    const {id} = useParams()
+    const {blogId} = req.params;
 
-    if(!id){
+    if(!blogId){
       res.json({success:false, message:'Id for the blog not found'})
     }
 
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(blogId);
 
     if(!blog){
       return res.json({success:false, message:"Blog not found"})
