@@ -22,3 +22,47 @@ export const addComment = async (req, res) => {
     res.json({success:false, message:error.message})
   }
 }
+
+export const deleteComment = async (req, res) => {
+  try {
+
+    const {id} = req.body;
+
+    if(!id){
+      res.json({success:false, message:'Id not found'})
+    }
+
+    const comment = await Comment.findById(id)
+
+    if(!comment){
+      res.json({success:false, message:'Comment not found'})
+    }
+
+    await Comment.findByIdAndDelete(id);
+
+    res.json({success: true, message:'Comment deleted successfully'})
+    
+  } catch (error) {
+    console.log(error)
+    res.json({success:false, message: error.message})
+  }
+}
+
+export const toggleComment = async (req, res) => {
+  try {
+
+    const {id} = req.body;
+
+    const comment = await Comment.findById(id);
+    if(!comment){
+      return res.json({success:false, message:'Comment not found!'});
+    }
+    comment.isApproved = !comment.isApproved;
+    comment.save()
+    return res.json({success:true, message:'Comment deleted successfully!'})
+  } catch (error) {
+    console.log(error)
+    res.json({success:false, message:error.message})
+  }
+}
+
