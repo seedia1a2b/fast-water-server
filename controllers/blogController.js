@@ -38,7 +38,7 @@ export const addBlog = async (req, res) => {
 
 export const getAllBlog = async (req, res) => {
   try {
-    const blogs = await Blog.find({});
+    const blogs = await Blog.find({isPublished: true});
 
     if(blogs.length < 1){
       res.json({success:false, message:"No blogs found upload to view blogs"})

@@ -4,6 +4,7 @@ import 'dotenv/config'
 import connectDb from './config/connectDB.js';
 import adminRouter from './routes/AdminRoute.js';
 import connectCloudinary from './config/cloudinary.js';
+import blogRouter from './routes/blogRoutes.js';
 
 const app = express()
 
@@ -24,7 +25,9 @@ app.get('/', (req, res)=> {
   res.send("Api working....")
 })
 
+//all api routes
 app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/blog', blogRouter)
 
 
 app.listen(PORT, ()=> {

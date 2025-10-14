@@ -12,11 +12,5 @@ adminRouter.post('/login', adminLogin);
 
 adminRouter.post('/create-new-admin', authAdmin , addNewAdmin);
 
-adminRouter.post('/create-blog', upload.single('image'),authAdmin, addBlog);
-
-adminRouter.get('/Blogs', getAllBlog);
-
-adminRouter.get('/blog', getBlog);
-
 export default adminRouter;
 
