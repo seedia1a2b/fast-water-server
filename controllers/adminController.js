@@ -3,6 +3,7 @@ import Admin from "../models/AdminModel.js";
 import bcrypt from 'bcryptjs'
 import { generateToken } from "../utiles.js";
 import Blog from '../models/blog.js'
+import Comment from "../models/comment.js";
 
 export const adminLogin =  async (req, res) => {
   try {
@@ -79,6 +80,20 @@ export const getAllBlogsAdmins = async (req, res) => {
       return res.json({success:false, message: "No Blogs found"})
     }
     res.json({success:true, data:blogs});
+  } catch (error) {
+    console.log(error)
+    res.json({success:false, message:error.message})
+  }
+}
+
+export const getAllCommentsAdmins = async (req, res) => {
+  try {
+    const comments = await Comment.find({}).populate('Blog').sort({createdAt: -1});
+
+    if(!comments){
+      return res.json({success:false, message:'No comments found'})
+    }
+    res.json({success:true, data: comments})
   } catch (error) {
     console.log(error)
     res.json({success:false, message:error.message})
