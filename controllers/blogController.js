@@ -134,7 +134,9 @@ export const editBlogDescription = async (req, res) => {
       return res.json({success:false, message:'Blog not found'})
     }
 
-    await Blog.findByIdAndUpdate(id, {description:description}, {new:true, runValidators:true});
+    blog.description = description;
+
+    await blog.save();
 
     return res.json({success:false, message:'Blog description Updated', data:blog});
     
@@ -142,6 +144,33 @@ export const editBlogDescription = async (req, res) => {
     console.log(error)
     res.json({success:false, message:error.message})
   }
+}
+
+export const editSubTitle = async (req, res) => {
+  try {
+     const {id, subTitle} = req.body;
+
+    if(!id || !subTitle){
+      return res.json({success:false, message:'Missig id or sub-title'});
+    }
+
+    const blog = await Blog.findById(id);
+
+    if(!blog){
+      return res.json({success:false, message:'Blog not found'})
+    }
+
+    blog.subTitle = subTitle;
+
+    await blog.save();
+
+    return res.json({success:false, message:'Blog description Updated', data:blog});
+    
+  } catch (error) {
+    console.log(error)
+    res.json({success:false, message:error.message})
+  }
+    
 }
 
 export const getBlogComment = async (req, res) => {

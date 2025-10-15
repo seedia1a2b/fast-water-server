@@ -4,6 +4,7 @@ import {
   addBlog, 
   deleteBlog, 
   editBlogDescription, 
+  editSubTitle, 
   getAllBlog, 
   getBlog, 
   getBlogComment, 
@@ -26,6 +27,8 @@ blogRouter.post('/delete', authAdmin, deleteBlog);
 blogRouter.post('/toggle-publish', authAdmin, toggleBlog);
 
 blogRouter.post('/edit-description', authAdmin, editBlogDescription);
+
+blogRouter.post('/edit-subtitle', authAdmin, editSubTitle)
 
 blogRouter.post('/blog-comment', getBlogComment)
 
