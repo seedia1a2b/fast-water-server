@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Admin from "../models/AdminModel.js";
 import bcrypt from 'bcryptjs'
 import { generateToken } from "../utiles.js";
+import Blog from '../models/blog.js'
 
 export const adminLogin =  async (req, res) => {
   try {
@@ -66,5 +67,20 @@ export const addNewAdmin = async (req, res) => {
   } catch (error) {
     console.log(error)
     res.json({success:false, message:error.message});
+  }
+}
+
+
+export const getAllBlogsAdmins = async (req, res) => {
+  try {
+    const blogs = await Blog.find({}).sort({createdAt: -1});
+
+    if(blogs.length < 1){
+      return res.json({success:false, message: "No Blogs found"})
+    }
+    res.json({success:true, data:blogs});
+  } catch (error) {
+    console.log(error)
+    res.json({success:false, message:error.message})
   }
 }
