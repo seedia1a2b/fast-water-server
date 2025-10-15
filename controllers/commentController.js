@@ -58,10 +58,28 @@ export const toggleComment = async (req, res) => {
       return res.json({success:false, message:'Comment not found!'});
     }
     comment.isApproved = !comment.isApproved;
-    comment.save()
-    return res.json({success:true, message:'Comment deleted successfully!'})
+    await comment.save();
+    return res.json({success:true, message:'Comment deleted successfully!'});
   } catch (error) {
     console.log(error)
+    res.json({success:false, message:error.message})
+  }
+}
+
+export const editComment = async (req, res) => {
+  try {
+    const {id, content} = req.body;
+
+    if(!id){
+      return res.json({success:false, message:'Id not found'})
+    }
+    const comment = await Comment.findByIdAndUpdate(id,
+      {content: content},
+      {new:true, runValidators:true}
+    )
+    
+  } catch (error) {
+    console.log(error);
     res.json({success:false, message:error.message})
   }
 }
