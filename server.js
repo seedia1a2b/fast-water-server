@@ -5,6 +5,7 @@ import connectDb from './config/connectDB.js';
 import adminRouter from './routes/AdminRoute.js';
 import connectCloudinary from './config/cloudinary.js';
 import blogRouter from './routes/blogRoutes.js';
+import commentRouter from './routes/commentRoutes.js';
 
 const app = express()
 
@@ -27,7 +28,8 @@ app.get('/', (req, res)=> {
 
 //all api routes
 app.use('/api/v1/admin', adminRouter);
-app.use('/api/v1/blog', blogRouter)
+app.use('/api/v1/blog', blogRouter);
+app.use('/api/v1/comment', commentRouter);
 
 
 app.listen(PORT, ()=> {

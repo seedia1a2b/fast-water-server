@@ -8,11 +8,11 @@ const commentRouter = express.Router();
 
 commentRouter.post('/add-comment', addComment);
 
-commentRouter.post('/add-comment', authAdmin, deleteComment);
+commentRouter.post('/delete-comment', authAdmin, deleteComment);
 
-commentRouter.post('/add-comment',authAdmin, toggleComment);
+commentRouter.post('/toggle-approve',authAdmin, toggleComment);
 
-commentRouter.post('/add-comment',authAdmin, editComment);
+commentRouter.post('/edit-comment',authAdmin, editComment);
 
 export default commentRouter;
 
