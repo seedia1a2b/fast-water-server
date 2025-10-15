@@ -1,6 +1,14 @@
 import express from 'express';
 import authAdmin from '../middlewares/adminAuth.js';
-import { addBlog, deleteBlog, editBlogDescription, getAllBlog, getBlog, toggleBlog } from '../controllers/blogController.js';
+import { 
+  addBlog, 
+  deleteBlog, 
+  editBlogDescription, 
+  getAllBlog, 
+  getBlog, 
+  getBlogComment, 
+  toggleBlog 
+} from '../controllers/blogController.js';
 import upload from '../config/multer.js';
 
 const blogRouter = express.Router();
@@ -18,5 +26,7 @@ blogRouter.post('/delete', authAdmin, deleteBlog);
 blogRouter.post('/toggle-publish', authAdmin, toggleBlog);
 
 blogRouter.post('/edit-description', authAdmin, editBlogDescription);
+
+blogRouter.post('/blog-comment', getBlogComment)
 
 export default blogRouter;

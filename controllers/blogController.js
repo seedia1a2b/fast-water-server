@@ -1,5 +1,6 @@
 import {v2 as cloudinary} from 'cloudinary';
 import Blog from '../models/blog.js';
+import Comment from '../models/comment.js';
 
 
 export const addBlog = async (req, res) => {
@@ -139,6 +140,28 @@ export const editBlogDescription = async (req, res) => {
     
   } catch (error) {
     console.log(error)
+    res.json({success:false, message:error.message})
+  }
+}
+
+export const getBlogComment = async (req, res) => {
+  try {
+
+    const {blogId} = req.body;
+
+    if(!blogId){
+      return res.json({success:false, message: 'Blog id missing'})
+    }
+
+    const comments = await Comment.find({blog: blogId});
+
+    if(!comments){
+      return res.json({success:false, message:'No comments found'})
+    }
+
+    res.json({success:true, data:comments});
+  } catch (error) {
+    console.log(error);
     res.json({success:false, message:error.message})
   }
 }
