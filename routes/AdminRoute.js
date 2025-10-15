@@ -3,7 +3,8 @@ import {
   addNewAdmin, 
   adminLogin, 
   getAllBlogsAdmins, 
-  getAllCommentsAdmins
+  getAllCommentsAdmins,
+  getDarshboardData
 } from '../controllers/adminController.js'
 import authAdmin from '../middlewares/adminAuth.js';
 
@@ -16,7 +17,9 @@ adminRouter.post('/create-new-admin', authAdmin , addNewAdmin);
 
 adminRouter.get('/blogs', authAdmin, getAllBlogsAdmins);
 
-adminRouter.get('/comments', authAdmin, getAllCommentsAdmins)
+adminRouter.get('/comments', authAdmin, getAllCommentsAdmins);
+
+adminRouter.get('/darshboardData', authAdmin, getDarshboardData);
 
 export default adminRouter;
 

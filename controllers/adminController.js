@@ -99,3 +99,29 @@ export const getAllCommentsAdmins = async (req, res) => {
     res.json({success:false, message:error.message})
   }
 }
+
+export const getDarshboardData = async (req, res) => {
+  try {
+
+    const recentBlogs = await Blog.find({}).limit(5).sort({createdAt: -1});
+
+    const blogs = await Blog.countDocuments();
+
+    const draft = await Blog.countDocuments({isPublished: false});
+
+    const comments = await Comment.countDocuments();
+
+    const darshboardData = {
+      recentBlogs,
+      blogs,
+      draft,
+      comments
+    }
+    
+    res.json({success:true, data:darshboardData});
+    
+  } catch (error) {
+    console.log(error);
+    res.json({success:false, message:error.message})
+  }
+}
