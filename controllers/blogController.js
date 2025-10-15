@@ -118,5 +118,30 @@ export const toggleBlog = async (req, res) => {
   }
 }
 
+export const editBlogDescription = async (req, res) => {
+  try {
+
+    const {id, description} = req.body;
+
+    if(!id || !description){
+      return res.json({success:false, message:'Missig id or description'});
+    }
+
+    const blog = await Blog.findById(id);
+
+    if(!blog){
+      return res.json({success:false, message:'Blog not found'})
+    }
+
+    await Blog.findByIdAndUpdate(id, {description:description}, {new:true, runValidators:true});
+
+    return res.json({success:false, message:'Blog description Updated', data:blog});
+    
+  } catch (error) {
+    console.log(error)
+    res.json({success:false, message:error.message})
+  }
+}
+
 
 
