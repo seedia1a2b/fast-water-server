@@ -60,7 +60,7 @@ export const toggleComment = async (req, res) => {
     }
     comment.isApproved = !comment.isApproved;
     await comment.save();
-    return res.json({success:true, message:'Comment deleted successfully!'});
+    return res.json({success:true, message:`${comment.isApproved ? 'Comment approved' : 'Comment Unapproved'}`});
   } catch (error) {
     console.log(error)
     res.json({success:false, message:error.message})

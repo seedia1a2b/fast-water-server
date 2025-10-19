@@ -88,7 +88,7 @@ export const getAllBlogsAdmins = async (req, res) => {
 
 export const getAllCommentsAdmins = async (req, res) => {
   try {
-    const comments = await Comment.find({}).populate('Blog').sort({createdAt: -1});
+    const comments = await Comment.find({}).populate('blog').sort({createdAt: -1});
 
     if(!comments){
       return res.json({success:false, message:'No comments found'})
