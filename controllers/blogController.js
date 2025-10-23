@@ -44,6 +44,7 @@ export const addBlog = async (req, res) => {
 
 
 export const getAllBlog = async (req, res) => {
+  console.log('enetered')
   try {
     const blogs = await Blog.find({isPublished: true});
     if(blogs.length < 1){

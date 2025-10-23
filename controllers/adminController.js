@@ -30,7 +30,7 @@ export const adminLogin =  async (req, res) => {
         res.json({success:true, token})
       }else {
         const token = generateToken(email)
-        return res.json({success:true, token})
+        return res.json({success:true, token, data:admin.email})
       }
     }else {
       return res.json({success:false, message:'Admin not found'})
@@ -122,6 +122,20 @@ export const getDarshboardData = async (req, res) => {
     
   } catch (error) {
     console.log(error);
+    res.json({success:false, message:error.message})
+  }
+}
+
+export const getAdminDetails = async (req, res) => {
+  try {
+    const admin = await Admin.find({}).select('-password');
+
+    if(!admin){
+      res.json({success:false, message:'Admin not found!'})
+    }
+
+    res.json({success:true, admin});
+  } catch (error) {
     res.json({success:false, message:error.message})
   }
 }
