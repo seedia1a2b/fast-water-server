@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Admin from "../models/AdminModel.js";
 import bcrypt from 'bcryptjs'
 import { generateToken } from "../utiles.js";
