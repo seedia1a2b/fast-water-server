@@ -20,7 +20,7 @@ app.use(cors({origin:'*', credentials:true}));
 //routes 
 app.get('/', (req, res)=> {
   res.send("Api working....")
-})
+});
 
 //all api routes
 app.use('/api/v1/admin', adminRouter);
